@@ -99,7 +99,6 @@ int main()
         cout << "ycsb_load open fail!" << endl;
         return 0;
     }
-    char op[7];
     for (int i = 0; i < READ_WRITE_NUM; ++i)
     {
         fscanf(ycsb_load, "%s %lu", op, &key[i]);
@@ -124,7 +123,7 @@ int main()
             db->Put(write_options, &dbkey, &dbkey);
         } else {
             ++queried;
-            db->Get(read_options, &dbkey, &value);
+            db->Get(leveldb::ReadOptions(), &dbkey, &value);
         }
     }
 
