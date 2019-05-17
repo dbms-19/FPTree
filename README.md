@@ -7,8 +7,8 @@ FPTree
 |第一阶段|系统说明书|PAllocator实现|通过utility测试|LevelDB的使用以及测试|lycsb.cpp|p_allocator.cpp|utility_test.cpp的运行|
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
 |完成情况|[覃伟][汤万鹏][]|[]|[]|[覃伟]|[覃伟][汤万鹏]|[]|[]|
-|第二阶段|FPTreeDB插入|FPTreeDB重载|fptree.cpp|fptree_test.cpp|测试文件makefile|
-|完成情况|[]|[]|[]|[]|[汤万鹏]|
+|第二阶段|FPTreeDB插入|FPTreeDB重载|fptree.cpp|fptree_test.cpp|
+|完成情况|[]|[]|[]|[]|
 |第三阶段|FPTreeDB查询|FPTreeDB更新|fptree.cpp|fptree_test.cpp|
 |完成情况|[]|[]|[]|[]|
 |第四阶段|FPTreeDB删除操作|所有剩下实现以及测试|fptree.cpp|fptree_test.cpp|
@@ -89,13 +89,16 @@ $ ./demo
 ```
 
 结果如下，代表成功：
-!(image)[https://github.com/dbms-19/FPTree/tree/master/pic]
+
+![image](https://github.com/ButBueatiful/dotvim/raw/master/screenshots/vim-screenshot.jpg)
 
 ```
 读取到的与(key=apple)对应的(value=A)
 ```
 
 然后对lycsb.cpp进行编写，编译运行得到结果：
+
+![image](https://github.com/ButBueatiful/dotvim/raw/master/screenshots/vim-screenshot.jpg)
 
 ---
 加分项
