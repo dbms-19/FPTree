@@ -114,7 +114,9 @@ $ ./demo
 |另外用一个项目实现CFPTree |[]| |
 
 
-
+# 2019.5.17
+测试代码makefile编写
+参照[gtest仓库的示例makefile](https://github.com/google/googletest/blob/master/googletest/make/Makefile)完善啦测试代码的makefile
 ---
 ## 参考资料
 [内存计算技术研究综述](http://www.jos.org.cn/html/2016/8/5103.htm#top) <br>
