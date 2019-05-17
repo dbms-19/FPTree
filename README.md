@@ -3,14 +3,16 @@ FPTree
 
 ## 工作进度
 ---
-第一阶段|系统说明书|PAllocator实现|通过utility测试|LevelDB的使用以及测试|lycsb.cpp|p_allocator.cpp|utility_test.cpp的运行|
-完成情况|[]|[]|[]|[]|[]|[]|[]|
-第二阶段|FPTreeDB插入|FPTreeDB重载|fptree.cpp|fptree_test.cpp|
-完成情况|[]|[]|[]|[]|
-第三阶段|FPTreeDB查询|FPTreeDB更新|fptree.cpp|fptree_test.cpp|
-完成情况|[]|[]|[]|[]|
-第四阶段|FPTreeDB删除操作|所有剩下实现以及测试|fptree.cpp|fptree_test.cpp|
-完成情况|[]|[]|[]|[]|
+
+|第一阶段|系统说明书|PAllocator实现|通过utility测试|LevelDB的使用以及测试|lycsb.cpp|p_allocator.cpp|utility_test.cpp的运行|
+| ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
+|完成情况|[x]|[]|[]|[]|[]|[]|[]|
+|第二阶段|FPTreeDB插入|FPTreeDB重载|fptree.cpp|fptree_test.cpp|
+|完成情况|[]|[]|[]|[]|
+|第三阶段|FPTreeDB查询|FPTreeDB更新|fptree.cpp|fptree_test.cpp|
+|完成情况|[]|[]|[]|[]|
+|第四阶段|FPTreeDB删除操作|所有剩下实现以及测试|fptree.cpp|fptree_test.cpp|
+|完成情况|[]|[]|[]|[]|
 ---
 加分项
 |实现原始FPTree的micro-log机制 |[]|
@@ -32,3 +34,5 @@ FPTree
 [gtest官方repo](https://github.com/google/googletest) <br>
 [LevelDB基础操作](https://github.com/google/leveldb/blob/master/doc/index.md) <br>
 [levelDB官方repo](https://github.com/google/leveldb) <br>
+
+
