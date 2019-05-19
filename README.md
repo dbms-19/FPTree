@@ -38,5 +38,5 @@ FPTree
 [gtest官方repo](https://github.com/google/googletest) <br>
 [LevelDB基础操作](https://github.com/google/leveldb/blob/master/doc/index.md) <br>
 [levelDB官方repo](https://github.com/google/leveldb) <br>
-
+[PMDK官网教程](http://pmem.io/) <br>
 
