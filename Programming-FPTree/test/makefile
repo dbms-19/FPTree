@@ -49,7 +49,6 @@ TESTS = $(UTILITY_TEST) $(FPTREE_TEST)
 # definition.
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
-
 # House-keeping build targets.
 
 BIN = bin
@@ -78,11 +77,11 @@ GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 # compiles fast and for ordinary users its source rarely changes.
 gtest-all.o : $(GTEST_SRCS_)
 	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-            $(GTEST_DIR)/src/gtest-all.cc
+	$(GTEST_DIR)/src/gtest-all.cc
 
 gtest_main.o : $(GTEST_SRCS_)
 	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-            $(GTEST_DIR)/src/gtest_main.cc
+	$(GTEST_DIR)/src/gtest_main.cc
 
 libgtest.a : gtest-all.o
 	$(AR) $(ARFLAGS) $@ $^
@@ -101,27 +100,25 @@ utility.o : $(USER_DIR)/utility.cpp  $(USER_HEADER_DIR)/utility/utility.h $(GTES
 
 p_allocator.o :$(USER_DIR)/p_allocator.cpp $(USER_HEADER_DIR)/utility/p_allocator.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
-
 clhash.o : $(USER_DIR)/clhash.c $(USER_HEADER_DIR)/utility/clhash.h
 	$(CC) $(CFLAGS) -c $(USER_DIR)/clhash.c -I $(USER_HEADER_DIR)
 
 # utility test
 $(UTILITY_TEST) :utility_test.o p_allocator.o utility.o clhash.o $(GTEST_LIBS) $(BIN)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR) -lgtest_main -lpthread -lpmem $^ -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR) -lgtest_main utility_test.o p_allocator.o utility.o clhash.o libgtest.a libgtest_main.a -o $@ -lpthread -lpmem
 
 utility_test.o : utility_test.cpp $(USER_HEADER_DIR)/utility/utility.h $(GTEST_HEADERS) $(BIN)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(INCLUDE) -lpmem -c $< -o $@
 
 # fptree test
 $(FPTREE_TEST) : fptree_test.o fptree.o p_allocator.o utility.o clhash.o $(GTEST_LIBS) $(BIN)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR) -lgtest_main -lpthread $^ -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR) -lgtest_main fptree_test.o fptree.o p_allocator.o utility.o clhash.o libgtest.a libgtest_main.a -o $@ -lpthread -lpmem
 
 fptree_test.o : fptree_test.cpp $(USER_HEADER_DIR)/fptree.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 
 $(BIN):
 	mkdir -p bin
-
 $(USER_HEADER_DIR)/fptree.h:
 
 

@@ -6,7 +6,7 @@ FPTree
 
 |第一阶段|系统说明书|PAllocator实现|通过utility测试|LevelDB的使用以及测试|lycsb.cpp|p_allocator.cpp|utility_test.cpp的运行|
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
-|完成情况|[覃伟][汤万鹏][]|[]|[]|[覃伟]|[覃伟][汤万鹏]|[]|[]|
+|完成情况|[覃伟][汤万鹏][韩俊柠]|[韩俊柠]|[韩俊柠]|[覃伟]|[覃伟][汤万鹏]|[韩俊柠]|[韩俊柠]|
 |第二阶段|FPTreeDB插入|FPTreeDB重载|fptree.cpp|fptree_test.cpp|
 |完成情况|[]|[]|[]|[]|
 |第三阶段|FPTreeDB查询|FPTreeDB更新|fptree.cpp|fptree_test.cpp|
