@@ -59,13 +59,23 @@ USER_HEADERS = ../include/*.h
 all : $(GTEST_LIBS) $(TESTS)
 
 clean :
-	rm -f $(GTEST_LIBS) $(TESTS) *.o ../data/*
+	@-rm -f $(GTEST_LIBS) $(TESTS) *.o ../data/*
+	-sudo umount /dev/pmem0
+	@-rm -rf bin
 cleano :
-	rm -f $(GTEST_LIBS) *.o
+	@-rm -f $(GTEST_LIBS) *.o
 
 cleand : 
-	rm -f ../data/*
+	@-rm -f ../data/*
 
+.PHONY:mount  
+mount :
+	@mkdir -p bin/data
+	-sudo umount /dev/pmem0
+	#mount NVM to the data directory
+	sudo mkfs.ext4 /dev/pmem0
+	sudo mount -o dax /dev/pmem0 ./bin/data
+	sudo chmod -R 0777 ./bin/data
 # Builds gtest.a and gtest_main.a.
 
 # Usually you shouldn't tweak such internal variables, indicated by a
@@ -77,38 +87,40 @@ GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 # conservative and not optimized.  This is fine as Google Test
 # compiles fast and for ordinary users its source rarely changes.
 gtest-all.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
+	@$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest-all.cc
 
 gtest_main.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
+	@$(CXX) $(CPPFLAGS) -I$(GTEST_DIR)/include $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest_main.cc
 
 libgtest.a : gtest-all.o
-	$(AR) $(ARFLAGS) $@ $^
+	@$(AR) $(ARFLAGS) $@ $^
 
 libgtest_main.a : gtest-all.o gtest_main.o
-	$(AR) $(ARFLAGS) $@ $^
+	@$(AR) $(ARFLAGS) $@ $^
 
 # ===============================TODO: all below=================================
 fptree.o :
-
+	@$(CXX) $(CXXFLAGS) -c $(USER_DIR)/fptree.cpp -I$(USER_HEADER_DIR) -o fptree.o -lpmem
 utility.o : 
-
+	@$(CXX) $(CXXFLAGS) -c $(USER_DIR)/utility.cpp -I$(USER_HEADER_DIR) -o utility.o -lpmem
 p_allocator.o :
-
+	@$(CXX) $(CXXFLAGS) -c $(USER_DIR)/p_allocator.cpp -I$(USER_HEADER_DIR) -o p_allocator.o -lpmem
 clhash.o : $(USER_DIR)/clhash.c $(USER_HEADER_DIR)/utility/clhash.h
-	$(CC) $(CFLAGS) -c $(USER_DIR)/clhash.c -I $(USER_HEADER_DIR)
+	@$(CC) $(CFLAGS) -c $(USER_DIR)/clhash.c -I $(USER_HEADER_DIR)
 
 # utility test
-$(UTILITY_TEST) :
-
+$(UTILITY_TEST) : gtest-all.o gtest_main.o $(GTEST_LIBS) utility_test.o $(BIN) p_allocator.o utility.o clhash.o mount
+	@g++ -I${GTEST_DIR}/include utility_test.o  p_allocator.o utility.o clhash.o libgtest.a libgtest_main.a -o  $@ -lpthread -lpmem
 utility_test.o :
-
+	@$(CXX) $(CXXFLAGS) -w -I$(GTEST_DIR)/include -I$(USER_HEADER_DIR) -c utility_test.cpp -lpmem
 # fptree test
-$(FPTREE_TEST) :
+$(FPTREE_TEST) : gtest-all.o gtest_main.o $(GTEST_LIBS) fptree_test.o $(BIN) p_allocator.o utility.o clhash.o fptree.o mount
+	@g++ -I${GTEST_DIR}/include fptree_test.o  p_allocator.o utility.o clhash.o fptree.o libgtest.a libgtest_main.a -o  $@ -lpthread -lpmem
+	@rm -f *.o *.a
 
 fptree_test.o :
-
+	@$(CXX) $(CXXFLAGS) -w -I$(GTEST_DIR)/include -I$(USER_HEADER_DIR) -c fptree_test.cpp -lpmem
 $(BIN):
-	mkdir -p bin
+	@mkdir -p bin
