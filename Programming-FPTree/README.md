@@ -32,12 +32,6 @@
 
 - 理解：这是使用树结构来存储数据，每个叶子节点就是一个叶组，每个叶组里有16个相对内存地址以及对应的id，相对内存地址加上叶组所在的地址就是指向数据所在的地址。
 
----
-<br>
-参考资料  <br>
-
-[NVM编程文档](https://docs.pmem.io/getting-started-guide/introduction)  <br>
-
 **LevelDB**
 
 Leveldb是一个google实现的非常高效的kv数据库，目前的版本1.2能够支持billion级别的数据量了。 在这个数量级别下还有着非常高的性能，主要归功于它的良好的设计。特别是LSM算法。
