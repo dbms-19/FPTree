@@ -27,8 +27,8 @@
      - mkdir data
      - ./utility_test
   + 测试结果截图：
-     - ![编译](1_complie.png)
-     - ![结果](1_result.png)
+     - ![编译](https://github.com/dbms-19/FPTree/blob/master/1_complie.png)
+     - ![结果](https://github.com/dbms-19/FPTree/blob/master/1_result.png)
 
 - 理解：这是使用树结构来存储数据，每个叶子节点就是一个叶组，每个叶组里有16个相对内存地址以及对应的id，相对内存地址加上叶组所在的地址就是指向数据所在的地址。
 
