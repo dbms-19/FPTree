@@ -56,3 +56,39 @@ cd bin
 - 第二阶段完成于20日，了解代码和fptree结构后，书写插入和重载部分。
 - 第三阶段和第四阶段完成了31日，第三阶段，只更新update，所以并没有花很长时间，第四阶段，难度较大，因为本组都是重修，所以有提问于其他小组完成，特此说明，如果有扣分，即本组责任。
 - 最终，赶在31号之前，基本完成了本次项目，ycsb函数没有完成，具体可能没有理解其函数内容，希望TA酌情扣分，项目分值比重大，重修小组还是希望平时分高一点。感谢！
+
+#### ycsb
+### 书写ycsb
+通过阅读相关内容得知，ycsb和lycsb内容大致相同，过程相同，所以代码仿照lycsb书写即可。
+函数主要有3个部分
+- read
+
+read部分，通过文件读取，fscanf(fp, "%s %lu", op, &key) == EOF，将键值和是否插入保存。
+
+- operate_leveldb
+
+leveldb与lycsb内容相同，代码直接复制即可。
+
+- operate_Ftptree
+
+为Ftptree操作，如果为插入即执行树的插入，如果不是，即查询。
+
+为了执行ycsb的Ftptree，我们需要基于NVM进行操作，所以我们模拟NVM环境，这里即根据第一部分模拟NVM操作，将Ftptree存储数据的文件挂上NVM。
+
+命令如下：
+
+```
+	sudo umount /dev/pmem0
+	sudo mkfs.ext4 /dev/pmem0
+	sudo mount -o dax /dev/pmem0 ./bin/data
+	sudo chmod -R 0777 ./bin/data
+```
+
+将命令写入makefile中，进入src文件夹，make，在bin中执行ycsb可执行文件即可。
+
+![image](https://github.com/dbms-19/FPTree/blob/master/ycsb.jpg)
+
+
+
+
+
